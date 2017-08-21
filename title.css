@@ -1,0 +1,9 @@
+.title-text {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+    border-color: rgba(100, 100, 100, 0.8);
+    border-width: 1px;
+    border-style: solid;
+    padding: 0.8ex 0.5em;
+    color: white;
+}
