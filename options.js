@@ -58,6 +58,7 @@ function newRule() {
         } else {
             let table = document.querySelector('tbody');
             table.appendChild(makeRow(domain, ""));
+            input.value = '';
         }
     });
 }
