@@ -28,3 +28,28 @@ function handler(details) {
         file: 'title.css',
     });
 }
+
+
+// Context menu:
+
+browser.contextMenus.create({
+    contexts: ['image'],
+    title: "Show title-text on this domain",
+});
+
+browser.contextMenus.onClicked.addListener((info, tab) => {
+    browser.tabs.executeScript(tab.id, {
+        file: 'css-selector.js',
+        runAt: 'document_end',
+    }).then(() => {
+        browser.tabs.executeScript(tab.id, {
+            file: 'get-image-selector.js',
+            runAt: 'document_end',
+        }).then(() => {
+            browser.tabs.sendMessage(tab.id, info.srcUrl).then(setting => {
+                browser.storage.sync.set(setting);
+                handler({tabId: tab.id, frameId: undefined});
+            });
+        });
+    });
+});
