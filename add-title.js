@@ -7,7 +7,7 @@ function addTitle(selector) {
     // If the IMG is in a link, position the text relative to the link instead.
     let dest = comic;
     for (let elem = comic; elem.parentElement; elem = elem.parentElement) {
-        if (elem.localName == 'A' && elem.href) {
+        if (elem.localName == 'a' && elem.href) {
             dest = elem;
         }
     }
