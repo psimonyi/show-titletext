@@ -34,7 +34,7 @@ function handler(details) {
 
 browser.contextMenus.create({
     contexts: ['image'],
-    title: "Show title-text on this domain",
+    title: "Set title-text rule with this image",
 });
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
