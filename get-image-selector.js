@@ -1,3 +1,7 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 // This script requires findCssSelector (from css-selector.js) to actually get
 // the CSS selector from a DOM node.  That comes from Firefox DevTools:
 // https://hg.mozilla.org/mozilla-central/raw-file/tip/toolkit/modules/css-selector.js
