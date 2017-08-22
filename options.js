@@ -3,11 +3,18 @@ function init() {
     let table = document.querySelector('tbody');
     browser.storage.sync.get().then(conf => {
         for (let [domain, selector] of Object.entries(conf)) {
+            if (domain.startsWith(':')) continue; // this key is not a domain
             table.appendChild(makeRow(domain, selector));
         }
+
+        // Non-domain conf keys start with ':'.
+        document.getElementById('show-context-menu')
+            .checked = conf[':show-context-menu'] !== false;
     });
 
     document.getElementById('new-rule').addEventListener('click', newRule);
+    document.getElementById('show-context-menu')
+        .addEventListener('change', setContextMenu);
 }
 
 function makeRow(domain, selector) {
@@ -63,9 +70,15 @@ function newRule() {
     });
 }
 
+/* User toggled the show-context-menu option */
+function setContextMenu() {
+    let input = document.getElementById('show-context-menu');
+    browser.storage.sync.set({':show-context-menu': input.checked});
+}
+
 browser.storage.onChanged.addListener(reload);
 function reload(changes, areaName) {
-    for (let [domain, change] of Object.entries(changes)) {
+    for (let domain of Object.keys(changes).filter(k => !k.startsWith(':'))) {
         // The selector syntax would require escaping ", \, and newline.  Since
         // those aren't valid in domains, just verify that they're absent.
         if (domain.match(/["\\\n]/)) {
@@ -73,7 +86,7 @@ function reload(changes, areaName) {
             return;
         }
         let row = document.querySelector(`tr[data-domain="${domain}"]`);
-        let selector = change.newValue;
+        let selector = changes[domain].newValue;
         if (selector === undefined) {
             row.parentElement.removeChild(row);
         } else {
@@ -85,5 +98,10 @@ function reload(changes, areaName) {
                 table.appendChild(makeRow(domain, selector));
             }
         }
+    }
+
+    if (changes[':show-context-menu']) {
+        document.getElementById('show-context-menu')
+            .checked = changes[':show-context-menu'].newValue;
     }
 }
