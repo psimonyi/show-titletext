@@ -83,13 +83,8 @@ function setContextMenu() {
 browser.storage.onChanged.addListener(reload);
 function reload(changes, areaName) {
     for (let domain of Object.keys(changes).filter(k => !k.startsWith(':'))) {
-        // The selector syntax would require escaping ", \, and newline.  Since
-        // those aren't valid in domains, just verify that they're absent.
-        if (domain.match(/["\\\n]/)) {
-            console.error("Domain name contains weird characters!");
-            return;
-        }
-        let row = document.querySelector(`tr[data-domain="${domain}"]`);
+        let row = document.querySelector(
+            `tr[data-domain="${CSS.escape(domain)}"]`);
         let selector = changes[domain].newValue;
         if (selector === undefined) {
             row.parentElement.removeChild(row);
