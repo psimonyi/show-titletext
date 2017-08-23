@@ -88,14 +88,12 @@ function reload(changes, areaName) {
         let selector = changes[domain].newValue;
         if (selector === undefined) {
             row.parentElement.removeChild(row);
+        } else if (row) {
+            let input = row.querySelector('input');
+            input.value = selector;
         } else {
-            if (row) {
-                let input = row.querySelector('input');
-                input.value = selector;
-            } else {
-                let table = document.querySelector('tbody');
-                table.appendChild(makeRow(domain, selector));
-            }
+            let table = document.querySelector('tbody');
+            table.appendChild(makeRow(domain, selector));
         }
     }
 
