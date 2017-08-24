@@ -2,6 +2,8 @@
     "manifest_version": 2,
     "name": "Show comic title-text",
     "version": "3",
+    "author": "Peter Simonyi",
+    "homepage_url": "https://github.com/psimonyi/show-titletext",
     "description": "Display the title-text below comic pages",
 
     "applications": {
