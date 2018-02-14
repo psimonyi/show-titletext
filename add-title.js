@@ -4,6 +4,12 @@
 
 function addTitle(selector) {
     let comic = document.querySelector(selector);
+    if (!comic) {
+        console.warn("Show title-text extension: selector didn't match:",
+            selector);
+        return;
+    }
+
     let p = document.createElement('p');
     p.textContent = comic.getAttribute('title');
     p.classList.add('title-text');
