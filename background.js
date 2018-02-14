@@ -25,13 +25,14 @@ browser.storage.onChanged.addListener(changes => {
 });
 
 function handler(details) {
+    // Don't run in framed documents; they probably aren't the main page.
+    if (details.frameId && details.frameId > 0) return;
+
     browser.tabs.executeScript(details.tabId, {
-        frameId: details.frameId,
         runAt: 'document_end',
         file: 'add-title.js',
     });
     browser.tabs.insertCSS(details.tabId, {
-        frameId: details.frameId,
         runAt: 'document_end',
         file: 'title.css',
     });
@@ -64,7 +65,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
         }).then(() => {
             browser.tabs.sendMessage(tab.id, info.srcUrl).then(setting => {
                 browser.storage.sync.set(setting);
-                handler({tabId: tab.id, frameId: undefined});
+                handler({tabId: tab.id});
             });
         });
     });
