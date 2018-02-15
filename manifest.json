@@ -22,6 +22,12 @@
     "background": {
         "scripts": ["background.js"]
     },
+
+    "page_action": {
+        "default_icon": {
+            "19": "action-icon.svg"
+        }
+    },
     
     "options_ui": {
         "page": "options.html",

@@ -14,11 +14,18 @@ function init() {
         // Non-domain conf keys start with ':'.
         document.getElementById('show-context-menu')
             .checked = conf[':show-context-menu'] !== false;
+        let pageActionEnabled = browser.extension.getBackgroundPage()
+            .pageActionEnabled;
+        pageActionEnabled(conf[':offer-page-action']).then(enabled => {
+            document.getElementById('offer-page-action').checked = enabled;
+        });
     });
 
     document.getElementById('new-rule').addEventListener('click', newRule);
     document.getElementById('show-context-menu')
         .addEventListener('change', setContextMenu);
+    document.getElementById('offer-page-action')
+        .addEventListener('change', setPageAction);
 }
 
 function makeRow(domain, selector) {
@@ -80,6 +87,12 @@ function setContextMenu() {
     browser.storage.sync.set({':show-context-menu': input.checked});
 }
 
+/* User toggled the offer-page-action option */
+function setPageAction() {
+    let input = document.getElementById('offer-page-action');
+    browser.storage.sync.set({':offer-page-action': input.checked});
+}
+
 browser.storage.onChanged.addListener(reload);
 function reload(changes, areaName) {
     for (let domain of Object.keys(changes).filter(k => !k.startsWith(':'))) {
@@ -100,5 +113,9 @@ function reload(changes, areaName) {
     if (changes[':show-context-menu']) {
         document.getElementById('show-context-menu')
             .checked = changes[':show-context-menu'].newValue;
+    }
+    if (changes[':offer-page-action']) {
+        document.getElementById('offer-page-action')
+            .checked = changes[':offer-page-action'].newValue;
     }
 }
