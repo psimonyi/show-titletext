@@ -21,8 +21,10 @@ page loading (and the guessing will not be as good as just right-clicking on
 the comic), except on Android where it is the only convenient way to add rules.
 
 You can edit (or manually create) rules in the add-on preferences.  Each domain
-is associated with a CSS selector identifying the comic image.  For example,
-`#comic > img` would work for xkcd.com.
+is associated with a
+[CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
+identifying the comic image.  For example, `#comic > img` would work for
+xkcd.com.
 
 Once you've finished adding most rules, you can remove the context menu entry
 or disable the page action from the add-on preferences.
@@ -31,5 +33,5 @@ or disable the page action from the add-on preferences.
 
 This extension is Free Software, made available under the terms of the [Mozilla
 Public License, version 2.0](https://www.mozilla.org/en-US/MPL/2.0/).
-
-You can get the source code at https://github.com/psimonyi/show-titletext
+You can get the source code from
+[the repository on GitHub](https://github.com/psimonyi/show-titletext).
