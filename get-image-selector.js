@@ -49,7 +49,7 @@ function makeRuleForImage(url) {
     for (let img of images) {
         if (img.currentSrc === url) {
             let selector = cssSelector(img);
-            return Promise.resolve({[document.domain]: selector});
+            return Promise.resolve({[location.host]: selector});
         }
     }
     return Promise.reject("Can't find the image");
@@ -87,7 +87,7 @@ var offered_image;
 function getOfferedRule() {
     let comic = offered_image;
     let selector = cssSelector(comic);
-    return Promise.resolve({[document.domain]: selector});
+    return Promise.resolve({[location.host]: selector});
 }
 
 // If this file is included more than once, skip it after the first.

@@ -25,7 +25,7 @@ function addTitle(selector) {
 }
 
 (() => {
-    let domain = document.location.hostname;
+    let domain = location.host;
     browser.storage.sync.get(domain).then(results => {
         addTitle(results[domain]);
     }).catch(e => {
