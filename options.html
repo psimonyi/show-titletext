@@ -7,22 +7,37 @@
 <head>
     <meta charset='utf-8'>
     <script src='options.js'></script>
+    <link rel='stylesheet' href='options.css'>
 </head>
 
 <body>
+    <h1>Preferences</h1>
+
+    <h2>Ways to add rules</h2>
+
     <p class='browser-style'>
         <input type='checkbox' id='show-context-menu'>
-        <label for='show-context-menu'>
-            Show context menu entry
-        </label>
+        <label for='show-context-menu'>Context menu</label>
+    </p>
+    <p class='description'>
+        Right-click on an image and choose 'Set title-text rule with this
+        image'.  A rule for the current domain will be added (or replaced) with
+        a selector that would find that image.
     </p>
 
     <p class='browser-style'>
         <input type='checkbox' id='offer-page-action'>
-        <label for='offer-page-action'>
-            Show page action
-        </label>
+        <label for='offer-page-action'>Page action</label>
     </p>
+    <p class='description'>
+        When there is no rule set for the current domain but the main image on
+        the page has title-text, click the
+        <img src='action-icon.svg' height='16px'>
+        icon in the location bar to add a rule for it.
+        Enabling this option may slow down page loading slightly.
+    </p>
+
+    <h2>Rules</h2>
 
     <table>
         <thead>
@@ -41,6 +56,8 @@
         </label>
         <button type='button' id='new-rule'>New rule</button>
     </p>
+
+    <h2>Advanced</h2>
 
     <p>
         <button type='button'

@@ -1,0 +1,6 @@
+p.description {
+    margin-top: 0;
+    color: #737373; /* matches description.indent in preferences.css */
+    margin-left: 24px; /* matches browser_styles checkbox size in extension.css
+           16px width + 2px borders + 6px margin-right */
+}
