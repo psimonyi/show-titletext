@@ -60,12 +60,12 @@ function makeRuleForImage(url) {
 function checkOfferAction() {
     let candidates = [];
     for (let img of document.images) {
-        // Find images that have a title, are near the centre of the page
+        // Find images that have a title, cross the centre line of the screen
         // horizontally, and are above the fold vertically.
         if (img.title) {
             let rect = img.getBoundingClientRect();
-            let centre = (rect.x + rect.width/2) / window.innerWidth;
-            if (0.4 <= centre && centre <= 0.6
+            let centre = window.innerWidth / 2;
+            if (rect.x < centre && centre < rect.x + rect.width
                     && rect.y <  window.innerHeight) {
                 candidates.push(img);
             }
