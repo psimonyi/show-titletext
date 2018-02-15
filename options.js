@@ -27,6 +27,13 @@ function init() {
         .addEventListener('change', setContextMenu);
     document.getElementById('offer-page-action')
         .addEventListener('change', setPageAction);
+
+    if (!browser.menus) {
+        // The context menus API is unavailable, so hide that option.
+        let checkbox = document.getElementById('show-context-menu');
+        checkbox.parentElement.style.display = 'none';
+        checkbox.parentElement.nextElementSibling.style.display = 'none';
+    }
 }
 
 function makeRow(domain, selector) {

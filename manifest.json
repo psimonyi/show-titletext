@@ -14,7 +14,7 @@
 
     "permissions": [
         "<all_urls>",
-        "contextMenus",
+        "menus",
         "storage",
         "webNavigation"
     ],

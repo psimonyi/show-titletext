@@ -44,37 +44,40 @@ function handler(details) {
 // Context menu:
 
 function initContextMenu() {
+    if (!browser.menus) return; // bail if the API isn't available.
     browser.storage.sync.get(':show-context-menu').then(conf => {
         if (conf[':show-context-menu'] !== false) {
-            browser.contextMenus.create({
+            browser.menus.create({
                 contexts: ['image'],
                 title: "Set title-text rule with this image",
             });
         } else {
-            browser.contextMenus.removeAll();
+            browser.menus.removeAll();
         }
     });
 }
 
-browser.contextMenus.onClicked.addListener((info, tab) => {
-    browser.tabs.executeScript(tab.id, {
-        file: 'css-selector.js',
-        runAt: 'document_end',
-    }).catch(() => { /* ignore errors */ }).then(() => {
+if (browser.menus) {
+    browser.menus.onClicked.addListener((info, tab) => {
         browser.tabs.executeScript(tab.id, {
-            file: 'get-image-selector.js',
+            file: 'css-selector.js',
             runAt: 'document_end',
-        }).then(() => {
-            browser.tabs.sendMessage(tab.id, {
-                cmd: 'rule-for-image',
-                url: info.srcUrl
-            }).then(rule => {
-                browser.storage.sync.set(rule);
-                handler({tabId: tab.id});
+        }).catch(() => { /* ignore errors */ }).then(() => {
+            browser.tabs.executeScript(tab.id, {
+                file: 'get-image-selector.js',
+                runAt: 'document_end',
+            }).then(() => {
+                browser.tabs.sendMessage(tab.id, {
+                    cmd: 'rule-for-image',
+                    url: info.srcUrl
+                }).then(rule => {
+                    browser.storage.sync.set(rule);
+                    handler({tabId: tab.id});
+                });
             });
         });
     });
-});
+}
 
 
 // Page action:
