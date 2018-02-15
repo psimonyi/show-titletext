@@ -102,19 +102,23 @@ function initPageAction() {
     });
 }
 
+// webNavigation.onCompleted handler
 function offerAction(details) {
     if (details.frameId > 0) return; // We'll just ignore frames.
-    //browser.storage.sync.get(domain).then(
-    browser.tabs.executeScript(details.tabId, {
-        file: 'get-image-selector.js',
-        runAt: 'document_idle',
-    }).then(() => {
-        browser.tabs.sendMessage(details.tabId, {
-            cmd: 'check-offer'
-        }).then(offer => {
-            if (offer) {
-                browser.pageAction.show(details.tabId);
-            }
+    let domain = new URL(details.url).host;
+    browser.storage.sync.get(domain).then(result => {
+        if (result[domain]) return;
+        browser.tabs.executeScript(details.tabId, {
+            file: 'get-image-selector.js',
+            runAt: 'document_idle',
+        }).then(() => {
+            browser.tabs.sendMessage(details.tabId, {
+                cmd: 'check-offer'
+            }).then(offer => {
+                if (offer) {
+                    browser.pageAction.show(details.tabId);
+                }
+            });
         });
     });
 }
