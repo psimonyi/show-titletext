@@ -22,6 +22,7 @@ function init() {
     });
 
     document.getElementById('new-rule').addEventListener('click', newRule);
+    document.getElementById('show-json').addEventListener('click', showJSON);
     document.getElementById('show-context-menu')
         .addEventListener('change', setContextMenu);
     document.getElementById('offer-page-action')
@@ -78,6 +79,24 @@ function newRule() {
             table.appendChild(makeRow(domain, ""));
             input.value = '';
         }
+    });
+}
+
+/* User clicked the Show as JSON button */
+function showJSON() {
+    browser.storage.sync.get().then(conf => {
+        let area = document.getElementById('json-area');
+        if (!area) {
+            area = document.createElement('textarea');
+            area.id = 'json-area';
+            area.style.display = 'block';
+            area.cols = 80;
+            area.rows = 10;
+            document.getElementById('show-json')
+                .parentElement.appendChild(area);
+        }
+        // TODO filter out keys starting with ':'
+        area.value = JSON.stringify(conf, null, 2);
     });
 }
 
