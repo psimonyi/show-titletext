@@ -24,9 +24,11 @@ function addTitle(selector) {
     dest.insertAdjacentElement('afterend', p);
 }
 
-let domain = document.location.hostname;
-browser.storage.sync.get(domain).then(results => {
-    addTitle(results[domain]);
-}).catch(e => {
-    console.error("Show title-text extension error:", e);
-});
+(() => {
+    let domain = document.location.hostname;
+    browser.storage.sync.get(domain).then(results => {
+        addTitle(results[domain]);
+    }).catch(e => {
+        console.error("Show title-text extension error:", e);
+    });
+})();
