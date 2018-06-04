@@ -27,7 +27,8 @@
         "default_icon": {
             "16": "action-icon-16.png",
             "32": "action-icon-32.png"
-        }
+        },
+        "default_title": "Automatically set a title-text rule"
     },
 
     "options_ui": {

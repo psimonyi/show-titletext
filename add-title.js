@@ -5,6 +5,7 @@
 function addTitle(selector) {
     let comic = document.querySelector(selector);
     if (!comic) {
+        browser.runtime.sendMessage('selector-fail');
         console.warn("Show title-text extension: selector didn't match:",
             selector);
         return;

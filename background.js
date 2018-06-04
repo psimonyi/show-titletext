@@ -40,6 +40,17 @@ function handler(details) {
     });
 }
 
+browser.runtime.onMessage.addListener((message, sender) => {
+    if (message !== 'selector-fail') {
+        console.error("unexpected message", message, sender);
+    }
+    let tabId = sender.tab.id;
+    browser.pageAction.setTitle({tabId, title: "Show title-text error"});
+    browser.pageAction.setIcon({tabId, path: 'action-icon-warning.svg'});
+    browser.pageAction.setPopup({tabId, popup: 'warning.html'});
+    browser.pageAction.show(tabId);
+});
+
 
 // Context menu:
 
