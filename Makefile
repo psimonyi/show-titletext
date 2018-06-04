@@ -12,9 +12,11 @@ files := action-icon-16.png action-icon-32.png action-icon-warning-16.png \
 
 action-icon-%.png: action-icon.svg
 	inkscape --export-png=$@ --export-width=$* --file=$<
+	pngcrush $@ /dev/stdout | sponge $@
 
 action-icon-warning-%.png: action-icon-warning.svg
 	inkscape --export-png=$@ --export-width=$* --file=$<
+	pngcrush $@ /dev/stdout | sponge $@
 
 show-titletext.xpi: $(files)
 	zip --filesync -n .png --quiet $@ $^
