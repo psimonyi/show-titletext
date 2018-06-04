@@ -1,6 +1,33 @@
-p.description {
-    margin-top: 0;
-    color: #737373; /* matches description.indent in preferences.css */
-    margin-left: 24px; /* matches browser_styles checkbox size in extension.css
-           16px width + 2px borders + 6px margin-right */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url('chrome://global/skin/in-content/common.css');
+
+:root {
+    -moz-user-select: none;
+}
+
+:root > * {
+    /* Try to match the font on the rest of the addon page */
+    font-size: 1.25rem;
+    color: #333;
+    line-height: 1.8;
+}
+
+/* Margins at the start or end of the page cause scrollbars */
+body > :first-child {
+    margin-block-start: 0;
+}
+body > :last-child {
+    margin-block-end: 0;
+}
+
+.helper {
+    color: #737373; /* Firefox Grey 50 (Photon "secondary color") */
+    font-size: calc(1em / 1.15);
+    line-height: normal;
+    margin-inline-start: 33px;
+    margin-block-start: 0;
+    margin-block-end: 0.9em;
 }
