@@ -31,3 +31,7 @@ body > :last-child {
     margin-block-start: 0;
     margin-block-end: 0.9em;
 }
+
+td {
+    -moz-user-select: text;
+}
