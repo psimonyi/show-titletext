@@ -46,7 +46,10 @@ browser.runtime.onMessage.addListener((message, sender) => {
     }
     let tabId = sender.tab.id;
     browser.pageAction.setTitle({tabId, title: "Show title-text error"});
-    browser.pageAction.setIcon({tabId, path: 'action-icon-warning.svg'});
+    browser.pageAction.setIcon({tabId, path: {
+        16: 'action-icon-warning-16.png',
+        32: 'action-icon-warning-32.png',
+    }});
     browser.pageAction.setPopup({tabId, popup: 'warning.html'});
     browser.pageAction.show(tabId);
 });
